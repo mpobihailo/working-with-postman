@@ -1,0 +1,250 @@
+{
+	"info": {
+		"_postman_id": "0e10ac84-6037-49c6-901d-10268d92dc89",
+		"name": "Postman Refinement [Mykola Pobihailo]",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27447805",
+		"_collection_link": "https://gold-zodiac-124213.postman.co/workspace/New-workspace-~035122a9-321f-46b5-bbfd-e0a168232b23/collection/27447805-0e10ac84-6037-49c6-901d-10268d92dc89?action=share&source=collection_link&creator=27447805"
+	},
+	"item": [
+		{
+			"name": "Successful login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains 'username' after successful login\", function () {\r",
+							"  pm.expect(pm.response.json().user).to.have.property('username');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains 'bio' with null value after successful login\", function () {\r",
+							"  const responseBody = pm.response.json();\r",
+							"  pm.expect(responseBody.user.bio).to.be.null;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzM0Nzk2LCJ1c2VybmFtZSI6InJvcnBvcmlyIiwiZXhwIjoxNjk3OTcyMjE1LCJpYXQiOjE2OTI3ODgyMTV9.m2B27CDiOc4D_xjKPqS1Ly01QjnnZqP0HUmXZ754zuw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user\": {\r\n    \"email\": \"ratut@mailinator.com\",\r\n    \"password\": \"Pa$$w0rd!\"\r\n   }\r\n}"
+				},
+				"url": {
+					"raw": "https://conduit.mate.academy/api/users/login",
+					"protocol": "https",
+					"host": [
+						"conduit",
+						"mate",
+						"academy"
+					],
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login with non-existing email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response contains 'email or password' property exists after unsuccessful login\", function () {\r",
+							"  pm.response.to.have.jsonBody('errors');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 422\", function () {\r",
+							"  pm.response.to.have.status(422);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user\": {\r\n    \"email\": \"rat@mailinator.com\",\r\n    \"password\": \"Pa$$w0rd!\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://conduit.mate.academy/api/users/login?Content-type=application/json",
+					"protocol": "https",
+					"host": [
+						"conduit",
+						"mate",
+						"academy"
+					],
+					"path": [
+						"api",
+						"users",
+						"login"
+					],
+					"query": [
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registration with existing email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response contains 'errors' property\", function () {\r",
+							"  pm.response.to.have.jsonBody('errors');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains error message about taken email\", function () {\r",
+							"  const jsonData = pm.response.json();\r",
+							"  pm.expect(jsonData.errors).to.exist;\r",
+							"  pm.expect(jsonData.errors.email).to.exist;\r",
+							"  pm.expect(jsonData.errors.email[0]).to.eql('This email is taken.');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 422\", function () {\r",
+							"  pm.response.to.have.status(422);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user\": {\r\n    \"username\": \"ronononnemin22\",\r\n    \"email\": \"ratut@mailinator.com\",\r\n    \"password\": \"Pa$$w0rd!\"\r\n   }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://conduit.mate.academy/api/users?Content-type=application/json",
+					"protocol": "https",
+					"host": [
+						"conduit",
+						"mate",
+						"academy"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registration with existing username",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response contains 'errors' property\", function () {\r",
+							"  pm.response.to.have.jsonBody('errors');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains error message about taken username\", function () {\r",
+							"  const jsonData = pm.response.json();\r",
+							"  pm.expect(jsonData.errors.username[0]).to.eql('This username is taken.');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 422\", function () {\r",
+							"  pm.response.to.have.status(422);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user\": {\r\n    \"username\": \"rorporir\",\r\n    \"email\": \"ryfykityji@mailinator.com\",\r\n    \"password\": \"Pa$$w0rd!\"\r\n   }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://conduit.mate.academy/api/users?Content-type=application/json",
+					"protocol": "https",
+					"host": [
+						"conduit",
+						"mate",
+						"academy"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "Content-type",
+							"value": "application/json"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

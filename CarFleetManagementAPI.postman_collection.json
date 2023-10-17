@@ -1,0 +1,253 @@
+{
+	"info": {
+		"_postman_id": "592ed2a2-0aaa-4394-a31e-02c5e0ceb3b4",
+		"name": "Car fleet management API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26294166"
+	},
+	"item": [
+		{
+			"name": "Cars",
+			"item": [
+				{
+					"name": "Get all cars",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cars",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update car",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 3,\r\n    \"manufacturer\": \"Tesla\",\r\n    \"model\": \"Cybertruck\",\r\n    \"build\": 2020\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cars",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single car",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cars/:carId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars",
+								":carId"
+							],
+							"variable": [
+								{
+									"key": "carId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new car",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"build\": 2020,\r\n  \"manufacturer\": \"Toyota\",\r\n  \"model\": \"Tacoma\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cars",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete car",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cars/:cardId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars",
+								":cardId"
+							],
+							"variable": [
+								{
+									"key": "cardId",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Repairs",
+			"item": [
+				{
+					"name": "Get all repairs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cars/:carId/repairs",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars",
+								":carId",
+								"repairs"
+							],
+							"variable": [
+								{
+									"key": "carId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get repair for a car",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cars/:carId/repairs/:repairId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars",
+								":carId",
+								"repairs",
+								":repairId"
+							],
+							"variable": [
+								{
+									"key": "carId",
+									"value": "6"
+								},
+								{
+									"key": "repairId",
+									"value": "12"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new repear",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"carId\": 6,\r\n    \"repair_date\": \"2020-12-15\",\r\n    \"description\": \"Oil change\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cars/repairs",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars",
+								"repairs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new repear Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"repair_date\": \"2020-12-15\",\r\n    \"description\": \"Type change\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cars/:carId/repairs",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars",
+								":carId",
+								"repairs"
+							],
+							"variable": [
+								{
+									"key": "carId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

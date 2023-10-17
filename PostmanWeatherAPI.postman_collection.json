@@ -1,0 +1,294 @@
+{
+	"info": {
+		"_postman_id": "e9918a5b-f574-4a49-8446-0379553665cc",
+		"name": "Postman: WeatherAPI [Mykola Pobihailo]",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27447805",
+		"_collection_link": "https://gold-zodiac-124213.postman.co/workspace/New-workspace-~035122a9-321f-46b5-bbfd-e0a168232b23/collection/27447805-e9918a5b-f574-4a49-8446-0379553665cc?action=share&source=collection_link&creator=27447805"
+	},
+	"item": [
+		{
+			"name": "Current day weather",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/v1/current.json?key={{API_KEY}}&q=Lviv",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"current.json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{API_KEY}}"
+						},
+						{
+							"key": "q",
+							"value": "Lviv"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Forecast for 3 days",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/v1/forecast.json?key={{API_KEY}}&q=Lviv&days=3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"forecast.json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{API_KEY}}"
+						},
+						{
+							"key": "q",
+							"value": "Lviv"
+						},
+						{
+							"key": "days",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Weather yesterday",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.weatherapi.com/v1/history.json?key={{API_KEY}}&dt={{yesterday}}&q=Lviv",
+					"protocol": "http",
+					"host": [
+						"api",
+						"weatherapi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"history.json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{API_KEY}}"
+						},
+						{
+							"key": "dt",
+							"value": "{{yesterday}}"
+						},
+						{
+							"key": "q",
+							"value": "Lviv"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Weather at the beginning of a week",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.weatherapi.com/v1/history.json?key={{API_KEY}}&dt={{start_of_week}}&q=Lviv",
+					"protocol": "http",
+					"host": [
+						"api",
+						"weatherapi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"history.json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{API_KEY}}"
+						},
+						{
+							"key": "dt",
+							"value": "{{start_of_week}}"
+						},
+						{
+							"key": "q",
+							"value": "Lviv"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Weather at beginning of a month",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.weatherapi.com/v1/history.json?key={{API_KEY}}&dt={{start_of_month}}&q=Lviv",
+					"protocol": "http",
+					"host": [
+						"api",
+						"weatherapi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"history.json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{API_KEY}}"
+						},
+						{
+							"key": "dt",
+							"value": "{{start_of_month}}"
+						},
+						{
+							"key": "q",
+							"value": "Lviv"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Weather month ago",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://api.weatherapi.com/v1/history.json?key={{API_KEY}}&dt={{month_ago}}&q=Lviv",
+					"protocol": "http",
+					"host": [
+						"api",
+						"weatherapi",
+						"com"
+					],
+					"path": [
+						"v1",
+						"history.json"
+					],
+					"query": [
+						{
+							"key": "key",
+							"value": "{{API_KEY}}"
+						},
+						{
+							"key": "dt",
+							"value": "{{month_ago}}"
+						},
+						{
+							"key": "q",
+							"value": "Lviv"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// script that creates a 'moment' variable",
+					"const moment = require('moment');",
+					"",
+					"// script that set a variable for yesterday's date ",
+					"pm.environment.set('yesterday', moment().subtract(1, 'day').format('YYYY-MM-DD'));",
+					"",
+					"// script that set a variable for the start of the current week",
+					"pm.environment.set('start_of_week', moment().startOf('isoWeek').format('YYYY-MM-DD'));",
+					"",
+					"// script that set a variable for the start of the current month",
+					"pm.environment.set('start_of_month', moment().startOf('month').format('YYYY-MM-DD'));",
+					"",
+					"// script that set a variable for the date month ago from today",
+					"pm.environment.set('month_ago', moment().subtract(1, 'month').format('YYYY-MM-DD'));"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://api.weatherapi.com"
+		},
+		{
+			"key": "API_KEY",
+			"value": "f4099e2dcba646eca7b175914232208",
+			"type": "string"
+		},
+		{
+			"key": "yesterday",
+			"value": ""
+		},
+		{
+			"key": "start_of_week",
+			"value": ""
+		},
+		{
+			"key": "start_of_month",
+			"value": ""
+		},
+		{
+			"key": "month_ago",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

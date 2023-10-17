@@ -1,0 +1,372 @@
+{
+	"info": {
+		"_postman_id": "3fe1ecb7-2397-440b-b15d-bd0eff4226aa",
+		"name": "Postman extended [Mykola Pobihailo]",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27447805",
+		"_collection_link": "https://gold-zodiac-124213.postman.co/workspace/New-workspace-~035122a9-321f-46b5-bbfd-e0a168232b23/collection/27447805-3fe1ecb7-2397-440b-b15d-bd0eff4226aa?action=share&source=collection_link&creator=27447805"
+	},
+	"item": [
+		{
+			"name": "Registration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test for response body properties\", () => {\r",
+							"    pm.response.to.have.jsonBody('user.username')\r",
+							"        .and.to.have.jsonBody('user.email')\r",
+							"        .and.to.have.jsonBody('user.token')\r",
+							"        .and.to.have.jsonBody('user.bio')\r",
+							"        .and.to.have.jsonBody('user.image');\r",
+							"});\r",
+							"\r",
+							"// pm.environment.set(\"emailConduit\", pm.response.json().user.email);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const USERNAME = pm.variables.replaceIn(\"{{$randomUserName}}\").toLowerCase() + Math.floor(Math.random(1000) * 1000).toString();\r",
+							"const EMAIL = USERNAME + '@mail.com';\r",
+							"\r",
+							"pm.environment.set('userName', USERNAME);\r",
+							"pm.environment.set('emailConduit', EMAIL);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\": {\r\n        \"username\": \"{{userName}}\",\r\n        \"email\": \"{{emailConduit}}\",\r\n        \"password\": \"{{passwordConduit}}\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test for response body properties\", () => {\r",
+							"    pm.response.to.have.jsonBody('user.username')\r",
+							"        .and.to.have.jsonBody('user.email')\r",
+							"        .and.to.have.jsonBody('user.token')\r",
+							"        .and.to.have.jsonBody('user.bio')\r",
+							"        .and.to.have.jsonBody('user.image');\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"tokenConduit\", pm.response.json().user.token);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\": {\r\n        \"email\": \"{{emailConduit}}\",\r\n        \"password\": \"{{passwordConduit}}\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create an article",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test for response body properties\", () => {\r",
+							"    pm.response.to.have.jsonBody('article.slug')\r",
+							"        .and.to.have.jsonBody('article.title')\r",
+							"        .and.to.have.jsonBody('article.description')\r",
+							"        .and.to.have.jsonBody('article.body')\r",
+							"        .and.to.have.jsonBody('article.createdAt')\r",
+							"        .and.to.have.jsonBody('article.updatedAt')\r",
+							"        .and.to.have.jsonBody('article.tagList')\r",
+							"        .and.to.have.jsonBody('article.favorited')\r",
+							"        .and.to.have.jsonBody('article.favoritesCount')\r",
+							"        .and.to.have.jsonBody('article.author.username')\r",
+							"        .and.to.have.jsonBody('article.author.bio')\r",
+							"        .and.to.have.jsonBody('article.author.image')\r",
+							"        .and.to.have.jsonBody('article.author.following');\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"slugConduit\", pm.response.json().article.slug);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokenConduit}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"article\": {\r\n        \"title\": \"{{$randomWord}}\",\r\n        \"description\": \"{{$randomLoremWords}}\",\r\n        \"body\": \"{{$randomLoremWords}}\",\r\n        \"tagList\": []\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/articles",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"articles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post a comment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test for response body properties\", () => {\r",
+							"    pm.response.to.have.jsonBody('comment.id')\r",
+							"        .and.to.have.jsonBody('comment.body')\r",
+							"        .and.to.have.jsonBody('comment.createdAt')\r",
+							"        .and.to.have.jsonBody('comment.updatedAt')\r",
+							"        .and.to.have.jsonBody('comment.author.username')\r",
+							"        .and.to.have.jsonBody('comment.author.bio')\r",
+							"        .and.to.have.jsonBody('comment.author.image')\r",
+							"        .and.to.have.jsonBody('comment.author.following');\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"commentId\", pm.response.json().comment.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokenConduit}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"comment\": {\r\n        \"body\": \"{{$randomLoremText}}\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/articles/{{slugConduit}}/comments",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"articles",
+						"{{slugConduit}}",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a comment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokenConduit}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/articles/{{slugConduit}}/comments/{{commentId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"articles",
+						"{{slugConduit}}",
+						"comments",
+						"{{commentId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an article",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{tokenConduit}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/articles/{{slugConduit}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"articles",
+						"{{slugConduit}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://conduit.mate.academy/api/",
+			"type": "string"
+		},
+		{
+			"key": "passwordConduit",
+			"value": "CP@ssw0rd!",
+			"type": "string"
+		}
+	]
+}

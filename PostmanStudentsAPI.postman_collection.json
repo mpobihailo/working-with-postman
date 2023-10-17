@@ -1,0 +1,119 @@
+{
+	"info": {
+		"_postman_id": "7d6971b8-0d50-4d2f-be7f-e199645f194e",
+		"name": "Postman: Students API [Mykola Pobihailo]",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27447805",
+		"_collection_link": "https://gold-zodiac-124213.postman.co/workspace/New-workspace-~035122a9-321f-46b5-bbfd-e0a168232b23/collection/27447805-7d6971b8-0d50-4d2f-be7f-e199645f194e?action=share&source=collection_link&creator=27447805"
+	},
+	"item": [
+		{
+			"name": "Get all goods",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://mate.academy/students-api/goods",
+					"protocol": "https",
+					"host": [
+						"mate",
+						"academy"
+					],
+					"path": [
+						"students-api",
+						"goods"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get good with id 245",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://mate.academy/students-api/goods/245",
+					"protocol": "https",
+					"host": [
+						"mate",
+						"academy"
+					],
+					"path": [
+						"students-api",
+						"goods",
+						"245"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get uncompleted todos from the user with id 1044",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://mate.academy/students-api/todos?userId=1044&completed=FALSE",
+					"protocol": "https",
+					"host": [
+						"mate",
+						"academy"
+					],
+					"path": [
+						"students-api",
+						"todos"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "1044"
+						},
+						{
+							"key": "completed",
+							"value": "FALSE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get completed todos from the user with id 4308",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://mate.academy/students-api/todos?userId=4308&completed=TRUE",
+					"protocol": "https",
+					"host": [
+						"mate",
+						"academy"
+					],
+					"path": [
+						"students-api",
+						"todos"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "4308"
+						},
+						{
+							"key": "completed",
+							"value": "TRUE"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

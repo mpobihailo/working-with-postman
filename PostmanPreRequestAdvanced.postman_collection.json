@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "420e7030-fab9-4d59-a8b1-987c0a28cb72",
+		"name": "Postman - Pre-Request Advanced [Mykola Pobihailo]",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27447805",
+		"_collection_link": "https://gold-zodiac-124213.postman.co/workspace/New-workspace-~035122a9-321f-46b5-bbfd-e0a168232b23/collection/27447805-420e7030-fab9-4d59-a8b1-987c0a28cb72?action=share&source=collection_link&creator=27447805"
+	},
+	"item": [
+		{
+			"name": "Create an article",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"slugConduit\", pm.response.json().article.slug);\r",
+							"\r",
+							"setTimeout(function() {\r",
+							"    eval(environment.deleteArticle)();\r",
+							"}, 5000)\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"eval(environment.registration)();\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token {{tokenConduit}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"article\": {\r\n        \"title\": \"{{$randomWord}}\",\r\n        \"description\": \"{{$randomLoremWords}}\",\r\n        \"body\": \"{{$randomLoremWords}}\",\r\n        \"tagList\": []\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}articles",
+					"host": [
+						"{{url}}articles"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"postman.setEnvironmentVariable('registration', () => {",
+					"    const userName = pm.variables.replaceIn(\"{{$randomWord}}\").toLowerCase() + Math.floor(Math.random(1000) * 1000);",
+					"    pm.environment.set('userName', userName.toLowerCase());",
+					"",
+					"    const emailConduit = pm.environment.replaceIn(\"{{$randomEmail}}\")",
+					"    pm.environment.set('emailConduit', emailConduit.toLowerCase()); ",
+					"",
+					"    const password = pm.environment.replaceIn(\"Pa$$w0rd123!\");",
+					"    pm.environment.set('passwordConduit', password); ",
+					"",
+					"",
+					"    const postRequest = {",
+					"        url: pm.environment.get(\"url\") + 'users',",
+					"        method: 'POST',",
+					"        header: {",
+					"            'Content-Type': 'application/json',",
+					"        },",
+					"        body: {",
+					"            mode: 'raw',",
+					"            raw: JSON.stringify({",
+					"                \"user\": {",
+					"                    \"username\": userName,",
+					"                    \"email\": emailConduit,",
+					"                    \"password\": password",
+					"                }",
+					"            })",
+					"        }",
+					"    };",
+					"",
+					"    pm.sendRequest(postRequest, (error, response) => {",
+					"        pm.environment.set('tokenConduit', response.json().user.token);",
+					"",
+					"        console.log(error ? error : response.json());",
+					"    });",
+					"    ",
+					"});",
+					"",
+					"postman.setEnvironmentVariable(\"deleteArticle\", () =>{",
+					"    const deleteRequest = {",
+					"        url: pm.environment.get('url')+ 'articles/'+ pm.environment.get('slugConduit'),",
+					"        method: 'DELETE',",
+					"        header: {",
+					"            'Content-Type': 'application/json',",
+					"            'Authorization': pm.environment.get('myToken')",
+					"            },",
+					"        body: { mode: 'none'}",
+					"}",
+					" pm.sendRequest(deleteRequest);",
+					"})",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://conduit.mate.academy/api/",
+			"type": "string"
+		},
+		{
+			"key": "passwordConduit",
+			"value": "Pa$$w0rd!",
+			"type": "string"
+		}
+	]
+}

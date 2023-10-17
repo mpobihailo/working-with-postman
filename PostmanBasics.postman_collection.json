@@ -1,0 +1,275 @@
+{
+	"info": {
+		"_postman_id": "a40c8083-4438-4790-a7d0-8626d4d13881",
+		"name": "Postman Basics [Mykola Pobihailo]",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27447805",
+		"_collection_link": "https://gold-zodiac-124213.postman.co/workspace/New-workspace-~035122a9-321f-46b5-bbfd-e0a168232b23/collection/27447805-a40c8083-4438-4790-a7d0-8626d4d13881?action=share&source=collection_link&creator=27447805"
+	},
+	"item": [
+		{
+			"name": "Registration",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "Content-type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user\": {\r\n    \"username\": \"{{$randomUserName}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"password\": \"jonjon123!\"\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "https://conduit.mate.academy/api/users",
+					"protocol": "https",
+					"host": [
+						"conduit",
+						"mate",
+						"academy"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user\": {\r\n    \"email\": \"augustus_mosciski@yahoo.com\",\r\n    \"password\": \"jonjon123!\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://conduit.mate.academy/api/users/login",
+					"protocol": "https",
+					"host": [
+						"conduit",
+						"mate",
+						"academy"
+					],
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzMzOTkyLCJ1c2VybmFtZSI6ImRlbWFyY3VzNTgiLCJleHAiOjE2OTc3OTAyNTAsImlhdCI6MTY5MjYwNjI1MH0.3S9GUroqzVBTXxxiFns4fXtPQ9w0VmBEcfQ3fQc-vPc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user\": {\r\n    \"image\": null,\r\n    \"username\": \"daemarcus589\",\r\n    \"bio\": \"I love my aunt\",\r\n    \"email\": \"augustus_mosciski@yahoo.com\",\r\n    \"password\": \"jonjon123!\",\r\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzMzOTkyLCJ1c2VybmFtZSI6ImRlbWFyY3VzNTgiLCJleHAiOjE2OTc3OTAyNTAsImlhdCI6MTY5MjYwNjI1MH0.3S9GUroqzVBTXxxiFns4fXtPQ9w0VmBEcfQ3fQc-vPc\",\r\n    \"effectiveImage\": \"https://static.productionready.io/images/smiley-cyrus.jpg\"\r\n  }\r\n}"
+				},
+				"url": {
+					"raw": "https://conduit.mate.academy/api/user",
+					"protocol": "https",
+					"host": [
+						"conduit",
+						"mate",
+						"academy"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Follow user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzMzOTkyLCJ1c2VybmFtZSI6ImRlbWFyY3VzNTgiLCJleHAiOjE2OTc3OTAyNTAsImlhdCI6MTY5MjYwNjI1MH0.3S9GUroqzVBTXxxiFns4fXtPQ9w0VmBEcfQ3fQc-vPc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"url": {
+					"raw": "https://conduit.mate.academy/api/profiles/salmon553/follow",
+					"protocol": "https",
+					"host": [
+						"conduit",
+						"mate",
+						"academy"
+					],
+					"path": [
+						"api",
+						"profiles",
+						"salmon553",
+						"follow"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unfollow user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzMzOTkyLCJ1c2VybmFtZSI6ImRlbWFyY3VzNTgiLCJleHAiOjE2OTc3OTAyNTAsImlhdCI6MTY5MjYwNjI1MH0.3S9GUroqzVBTXxxiFns4fXtPQ9w0VmBEcfQ3fQc-vPc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://conduit.mate.academy/api/profiles/salmon553/follow",
+					"protocol": "https",
+					"host": [
+						"conduit",
+						"mate",
+						"academy"
+					],
+					"path": [
+						"api",
+						"profiles",
+						"salmon553",
+						"follow"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
